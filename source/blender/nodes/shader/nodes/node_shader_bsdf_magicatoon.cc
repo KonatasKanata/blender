@@ -52,7 +52,7 @@ NODE_SHADER_MATERIALX_BEGIN
 #endif
 NODE_SHADER_MATERIALX_END
 
-}  // namespace blender::nodes::node_shader_bsdf_diffuse_cc
+}  // namespace blender::nodes::node_shader_bsdf_magicatoon_cc
 
 /* node type definition */
 void register_node_type_sh_bsdf_magicatoon()
@@ -61,7 +61,7 @@ void register_node_type_sh_bsdf_magicatoon()
 
   static blender::bke::bNodeType ntype;
 
-  sh_node_type_base(&ntype, "ShaderNodeBsdfToonDiffuse", SH_NODE_BSDF_DIFFUSE);
+  sh_node_type_base(&ntype, "ShaderNodeBsdfMagicaToon", SH_NODE_BSDF_MAGICATOON);
   ntype.ui_name = "MagicaToon BSDF";
   ntype.ui_description = "MagicaToon BSDF";
   ntype.enum_name_legacy = "BSDF_MAGICATOON";

@@ -2,14 +2,18 @@
  *
  * SPDX-License-Identifier: GPL-2.0-or-later */
 
-void node_emission(vec4 color, float strength, float weight, out Closure result)
+
+ #ifndef VOLUMETRICS
+
+void node_bsdf_magicatoon(vec4 color, float smooothness, vec3 N, float weight, out Closure result)
 {
-  color = max(color, vec4(0.0));
-  strength = max(strength, 0.0);
+  ClosureDiffuse diffuse_data;
+  diffuse_data.weight = weight;
+  diffuse_data.color = color.rgb;
+  diffuse_data.N = safe_normalize(N);
 
-  ClosureEmission emission_data;
-  emission_data.weight = weight;
-  emission_data.emission = color.rgb * strength;
-
-  result = closure_eval(emission_data);
+  result = closure_eval(diffuse_data);
+  result.radiance = color.rgb
 }
+
+#endif

@@ -1028,6 +1028,7 @@ static pxr::UsdShadeShader create_usd_preview_shader(const USDExporterContext &u
       break;
     }
     case SH_NODE_BSDF_DIFFUSE:
+    case SH_NODE_BSDF_MAGICATOON:
     case SH_NODE_BSDF_PRINCIPLED: {
       shader.CreateIdAttr(pxr::VtValue(usdtokens::preview_surface));
       material.CreateSurfaceOutput().ConnectToSource(shader.ConnectableAPI(), usdtokens::surface);
