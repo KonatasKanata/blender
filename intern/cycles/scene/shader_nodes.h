@@ -510,6 +510,13 @@ class DiffuseBsdfNode : public BsdfNode {
   NODE_SOCKET_API(float, roughness)
 };
 
+class MaticaToonBsdfNode : public BsdfNode {
+public:
+  SHADER_NODE_CLASS(MaticaToonBsdfNode)
+
+  NODE_SOCKET_API(float, normal_smoothness)
+};
+
 /* Disney principled BRDF */
 class PrincipledBsdfNode : public BsdfBaseNode {
  public:
@@ -763,7 +770,6 @@ class MagicaToonNode : public ShaderNode {
 
   NODE_SOCKET_API(float3, color)
   NODE_SOCKET_API(float, normal_to_light_factor)
-  NODE_SOCKET_API(float, surface_mix_weight)
 
   bool from_auto_conversion = false;
 };

@@ -560,6 +560,8 @@ static const char *node_get_static_idname(int type, int treetype)
         return "ShaderNodeBsdfAnisotropic";
       case SH_NODE_BSDF_DIFFUSE:
         return "ShaderNodeBsdfDiffuse";
+      case SH_NODE_BSDF_MAGICATOON:
+        return "ShaderNodeBsdfMagicaToon";
       case /*SH_NODE_BSDF_GLOSSY*/ 133:
         return "ShaderNodeBsdfGlossy";
       case SH_NODE_BSDF_GLASS:

@@ -12402,6 +12402,7 @@ static void rna_def_nodes(BlenderRNA *brna)
   define("ShaderNode", "ShaderNodeBrightContrast");
   define("ShaderNode", "ShaderNodeBsdfAnisotropic", def_glossy);
   define("ShaderNode", "ShaderNodeBsdfDiffuse");
+  define("ShaderNode", "ShaderNodeBsdfMagicaToon");
   define("ShaderNode", "ShaderNodeBsdfGlass", def_glass);
   define("ShaderNode", "ShaderNodeBsdfHair", def_hair);
   define("ShaderNode", "ShaderNodeBsdfHairPrincipled", def_hair_principled);

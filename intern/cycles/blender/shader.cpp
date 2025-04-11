@@ -529,6 +529,9 @@ static ShaderNode *add_node(Scene *scene,
   else if (b_node.is_a(&RNA_ShaderNodeBsdfDiffuse)) {
     node = graph->create_node<DiffuseBsdfNode>();
   }
+  else if (b_node.is_a(&RNA_ShaderNodeBsdfMagicaToon)) {
+    node = graph->create_node<DiffuseBsdfNode>();
+  }
   else if (b_node.is_a(&RNA_ShaderNodeSubsurfaceScattering)) {
     BL::ShaderNodeSubsurfaceScattering b_subsurface_node(b_node);
 

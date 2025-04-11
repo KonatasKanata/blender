@@ -4421,6 +4421,9 @@ void node_type_base(bNodeType *ntype, std::string idname, std::optional<int16_t>
 
   if (!ELEM(*legacy_type, NODE_CUSTOM, NODE_UNDEFINED)) {
     StructRNA *srna = RNA_struct_find(ntype->idname.c_str());
+    if (srna == nullptr) {
+      int A= 1;
+    }
     BLI_assert(srna != nullptr);
     ntype->rna_ext.srna = srna;
     RNA_struct_blender_type_set(srna, ntype);
