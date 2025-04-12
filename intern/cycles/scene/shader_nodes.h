@@ -510,9 +510,9 @@ class DiffuseBsdfNode : public BsdfNode {
   NODE_SOCKET_API(float, roughness)
 };
 
-class MaticaToonBsdfNode : public BsdfNode {
-public:
-  SHADER_NODE_CLASS(MaticaToonBsdfNode)
+class MagicaToonBsdfNode : public BsdfNode {
+ public:
+  SHADER_NODE_CLASS(MagicaToonBsdfNode)
 
   NODE_SOCKET_API(float, normal_smoothness)
 };
@@ -745,31 +745,6 @@ class EmissionNode : public ShaderNode {
   NODE_SOCKET_API(float3, color)
   NODE_SOCKET_API(float, strength)
   NODE_SOCKET_API(float, surface_mix_weight)
-
-  bool from_auto_conversion = false;
-};
-
-class MagicaToonNode : public ShaderNode {
- public:
-  SHADER_NODE_CLASS(MagicaToonNode)
-  void constant_fold(const ConstantFolder &folder) override;
-
-  bool has_surface_emission() override
-  {
-    return true;
-  }
-  bool has_volume_support() override
-  {
-    return true;
-  }
-
-  int get_feature() override
-  {
-    return ShaderNode::get_feature() | KERNEL_FEATURE_NODE_EMISSION;
-  }
-
-  NODE_SOCKET_API(float3, color)
-  NODE_SOCKET_API(float, normal_to_light_factor)
 
   bool from_auto_conversion = false;
 };

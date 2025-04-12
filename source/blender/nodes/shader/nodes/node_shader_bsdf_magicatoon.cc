@@ -19,7 +19,7 @@ static void node_declare(NodeDeclarationBuilder &b)
   b.add_output<decl::Shader>("BSDF");
 }
 
-static int node_shader_gpu_bsdf_toon_magicatoon(GPUMaterial *mat,
+static int node_shader_gpu_bsdf_magicatoon(GPUMaterial *mat,
                                                 bNode *node,
                                                 bNodeExecData * /*execdata*/,
                                                 GPUNodeStack *in,
@@ -69,7 +69,7 @@ void register_node_type_sh_bsdf_magicatoon()
   ntype.declare = file_ns::node_declare;
   ntype.add_ui_poll = object_shader_nodes_poll;
   blender::bke::node_type_size_preset(&ntype, blender::bke::eNodeSizePreset::Middle);
-  ntype.gpu_fn = file_ns::node_shader_gpu_bsdf_toon_magicatoon;
+  ntype.gpu_fn = file_ns::node_shader_gpu_bsdf_magicatoon;
   ntype.materialx_fn = file_ns::node_shader_materialx;
 
   blender::bke::node_register_type(&ntype);

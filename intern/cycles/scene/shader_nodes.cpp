@@ -2839,6 +2839,36 @@ void DiffuseBsdfNode::compile(OSLCompiler &compiler)
   compiler.add(this, "node_diffuse_bsdf");
 }
 
+/* MagicaToon BSDF Closure */
+NODE_DEFINE(MagicaToonBsdfNode)
+{
+  NodeType *type = NodeType::add("magicatoon_bsdf", create, NodeType::SHADER);
+
+  SOCKET_IN_COLOR(color, "Color", make_float3(0.8f, 0.8f, 0.8f));
+  SOCKET_IN_NORMAL(normal, "Normal", zero_float3(), SocketType::LINK_NORMAL);
+  SOCKET_IN_FLOAT(surface_mix_weight, "SurfaceMixWeight", 0.0f, SocketType::SVM_INTERNAL);
+  SOCKET_IN_FLOAT(normal_smoothness, "NormalSmoothness", 0.5f);
+
+  SOCKET_OUT_CLOSURE(BSDF, "BSDF");
+
+  return type;
+}
+
+MagicaToonBsdfNode::MagicaToonBsdfNode() : BsdfNode(get_node_type())
+{
+  closure = CLOSURE_BSDF_DIFFUSE_ID;
+}
+
+void MagicaToonBsdfNode::compile(SVMCompiler &compiler)
+{
+  BsdfNode::compile(compiler, input("NormalSmoothness"), nullptr, input("Color"));
+}
+
+void MagicaToonBsdfNode::compile(OSLCompiler &compiler)
+{
+  compiler.add(this, "node_magicatoon_bsdf");
+}
+
 /* Disney principled BSDF Closure */
 NODE_DEFINE(PrincipledBsdfNode)
 {
@@ -3262,55 +3292,6 @@ void EmissionNode::constant_fold(const ConstantFolder &folder)
     folder.discard();
   }
 }
-
-/* MagicaToon Closure */
-
-NODE_DEFINE(MagicaToonNode)
-{
-  NodeType *type = NodeType::add("magicatoon", create, NodeType::SHADER);
-
-  SOCKET_IN_COLOR(color, "Color", make_float3(0.8f, 0.8f, 0.8f));
-  SOCKET_IN_FLOAT(normal_to_light_factor, "NormalToLightFactor", 1.0f);
-
-  SOCKET_OUT_CLOSURE(magicatoon, "MagicaToon");
-
-  return type;
-}
-
-
-MagicaToonNode::MagicaToonNode() : ShaderNode(get_node_type()) {}
-
-void MagicaToonNode::compile(SVMCompiler &compiler)
-{
-  ShaderInput *color_in = input("Color");
-  ShaderInput *normal_to_light_factor_in = input("NormalToLightFactor");
-
-  if (color_in->link || normal_to_light_factor_in->link) {
-    compiler.add_node(
-        NODE_EMISSION_WEIGHT, compiler.stack_assign(color_in), compiler.stack_assign(normal_to_light_factor_in));
-  }
-  else {
-    compiler.add_node(NODE_CLOSURE_SET_WEIGHT, color * normal_to_light_factor);
-  }
-
-  compiler.add_node(NODE_CLOSURE_EMISSION, compiler.closure_mix_weight_offset());
-}
-
-void MagicaToonNode::compile(OSLCompiler &compiler)
-{
-  compiler.add(this, "node_magicatoon");
-}
-
-void MagicaToonNode::constant_fold(const ConstantFolder &folder)
-{
-  ShaderInput *color_in = input("Color");
-  ShaderInput *normal_to_light_factor_in = input("NormalToLightFactor");
-
-  if ((!color_in->link && color == zero_float3()) || (!normal_to_light_factor_in->link && normal_to_light_factor == 0.0f)) {
-    folder.discard();
-  }
-}
-
 
 /* Background Closure */
 
