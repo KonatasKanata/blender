@@ -153,6 +153,9 @@ static inline eClosureBits shader_closure_bits_from_flag(const GPUMaterial *gpum
   if (GPU_material_flag_get(gpumat, GPU_MATFLAG_DIFFUSE)) {
     closure_bits |= CLOSURE_DIFFUSE;
   }
+  if (GPU_material_flag_get(gpumat, GPU_MATFLAG_MAGICATOON)) {
+    closure_bits |= CLOSURE_MAGICATOON;
+  }
   if (GPU_material_flag_get(gpumat, GPU_MATFLAG_TRANSPARENT)) {
     closure_bits |= CLOSURE_TRANSPARENCY;
   }

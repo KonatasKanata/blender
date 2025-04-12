@@ -19,17 +19,17 @@ static void node_declare(NodeDeclarationBuilder &b)
   b.add_output<decl::Shader>("BSDF");
 }
 
-static int node_shader_gpu_bsdf_toon_diffuse(GPUMaterial *mat,
-                                            bNode *node,
-                                            bNodeExecData * /*execdata*/,
-                                            GPUNodeStack *in,
-                                            GPUNodeStack *out)
+static int node_shader_gpu_bsdf_toon_magicatoon(GPUMaterial *mat,
+                                                bNode *node,
+                                                bNodeExecData * /*execdata*/,
+                                                GPUNodeStack *in,
+                                                GPUNodeStack *out)
 {
   if (!in[2].link) {
     GPU_link(mat, "world_normals_get", &in[2].link);
   }
 
-  GPU_material_flag_set(mat, GPU_MATFLAG_DIFFUSE);
+  GPU_material_flag_set(mat, GPU_MATFLAG_MAGICATOON);
 
   return GPU_stack_link(mat, node, "node_bsdf_magicatoon", in, out);
 }
@@ -42,12 +42,12 @@ NODE_SHADER_MATERIALX_BEGIN
   }
 
   NodeItem color = get_input_value("Color", NodeItem::Type::Color3);
-  NodeItem roughness = get_input_value("NormalSmoothness", NodeItem::Type::Float);
+  NodeItem normalsmoothness = get_input_value("NormalSmoothness", NodeItem::Type::Float);
   NodeItem normal = get_input_link("Normal", NodeItem::Type::Vector3);
 
   return create_node("oren_nayar_magicatoon_bsdf",
                      NodeItem::Type::BSDF,
-                     {{"color", color}, {"roughness", roughness}, {"normal", normal}});
+                     {{"color", color}, {"normalsmoothness", normalsmoothness}, {"normal", normal}});
 }
 #endif
 NODE_SHADER_MATERIALX_END
@@ -69,7 +69,7 @@ void register_node_type_sh_bsdf_magicatoon()
   ntype.declare = file_ns::node_declare;
   ntype.add_ui_poll = object_shader_nodes_poll;
   blender::bke::node_type_size_preset(&ntype, blender::bke::eNodeSizePreset::Middle);
-  ntype.gpu_fn = file_ns::node_shader_gpu_bsdf_toon_diffuse;
+  ntype.gpu_fn = file_ns::node_shader_gpu_bsdf_toon_magicatoon;
   ntype.materialx_fn = file_ns::node_shader_materialx;
 
   blender::bke::node_register_type(&ntype);
