@@ -37,6 +37,7 @@ void main()
   for (uchar i = 0; i < GBUFFER_LAYER_MAX && i < gbuf.closure_count; i++) {
     switch (gbuffer_closure_get(gbuf, i).type) {
       case CLOSURE_BSDF_DIFFUSE_ID:
+      case CLOSURE_BSDF_MAGICATOON_ID:
       case CLOSURE_BSDF_TRANSLUCENT_ID:
       case CLOSURE_BSDF_MICROFACET_GGX_REFLECTION_ID:
       case CLOSURE_BSDF_MICROFACET_GGX_REFRACTION_ID:

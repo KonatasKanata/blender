@@ -14,6 +14,7 @@ float closure_apparent_roughness_get(ClosureUndetermined cl)
   switch (cl.type) {
     case CLOSURE_BSSRDF_BURLEY_ID:
     case CLOSURE_BSDF_DIFFUSE_ID:
+    case CLOSURE_BSDF_MAGICATOON_ID:
       return bxdf_diffuse_perceived_roughness();
     case CLOSURE_BSDF_TRANSLUCENT_ID:
       return bxdf_translucent_perceived_roughness();
@@ -36,6 +37,7 @@ float closure_evaluate_pdf(ClosureUndetermined cl, vec3 L, vec3 V, float thickne
       /* TODO(fclem): Sampled BSSDF. */
       return bxdf_diffuse_eval(cl.N, L).pdf;
     case CLOSURE_BSDF_DIFFUSE_ID:
+    case CLOSURE_BSDF_MAGICATOON_ID:
       return bxdf_diffuse_eval(cl.N, L).pdf;
     case CLOSURE_BSDF_MICROFACET_GGX_REFLECTION_ID: {
       ClosureReflection cl_ = to_closure_reflection(cl);
@@ -65,6 +67,7 @@ LightProbeRay bxdf_lightprobe_ray(ClosureUndetermined cl, vec3 P, vec3 V, float 
       return bxdf_translucent_lightprobe(cl.N, thickness);
     case CLOSURE_BSSRDF_BURLEY_ID:
     case CLOSURE_BSDF_DIFFUSE_ID:
+    case CLOSURE_BSDF_MAGICATOON_ID:
       return bxdf_diffuse_lightprobe(cl.N);
     case CLOSURE_BSDF_MICROFACET_GGX_REFLECTION_ID:
       return bxdf_ggx_lightprobe_reflection(to_closure_reflection(cl), V);
@@ -113,6 +116,7 @@ ClosureLight closure_light_new_ex(ClosureUndetermined cl,
         break;
       case CLOSURE_BSSRDF_BURLEY_ID:
       case CLOSURE_BSDF_DIFFUSE_ID:
+      case CLOSURE_BSDF_MAGICATOON_ID:
       default:
         cl_light = bxdf_diffuse_light(cl);
         break;

@@ -94,6 +94,11 @@ ClosureType closure_type_get(ClosureDiffuse cl)
   return CLOSURE_BSDF_DIFFUSE_ID;
 }
 
+ClosureType closure_type_get(ClosureMagicaToon cl)
+{
+  return CLOSURE_BSDF_MAGICATOON_ID;
+}
+
 ClosureType closure_type_get(ClosureTranslucent cl)
 {
   return CLOSURE_BSDF_TRANSLUCENT_ID;
@@ -190,6 +195,16 @@ Closure closure_eval(ClosureDiffuse diffuse)
   /* Either is single closure or use same bin as transmission bin. */
   closure_select(g_closure_bins[0], g_closure_rand[0], cl);
 #endif
+  return Closure(0);
+}
+
+/* Magica BSDFs. */
+Closure closure_eval(ClosureMagicaToon diffuse)
+{
+  ClosureUndetermined cl;
+  closure_base_copy(cl, diffuse);
+  closure_select(g_closure_bins[0], g_closure_rand[0], cl);
+  g_closure_bins[0].type = CLOSURE_BSDF_MAGICATOON_ID;
   return Closure(0);
 }
 

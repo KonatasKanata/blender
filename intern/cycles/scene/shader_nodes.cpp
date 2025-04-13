@@ -2856,7 +2856,7 @@ NODE_DEFINE(MagicaToonBsdfNode)
 
 MagicaToonBsdfNode::MagicaToonBsdfNode() : BsdfNode(get_node_type())
 {
-  closure = CLOSURE_BSDF_DIFFUSE_ID;
+  closure = CLOSURE_BSDF_MAGICATOON_ID;
 }
 
 void MagicaToonBsdfNode::compile(SVMCompiler &compiler)

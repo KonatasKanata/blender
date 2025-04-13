@@ -146,6 +146,7 @@ using ClosureType = uchar;
 #define CLOSURE_NONE_ID 0u
 /* Diffuse */
 #define CLOSURE_BSDF_DIFFUSE_ID 1u
+#define CLOSURE_BSDF_MAGICATOON_ID 3u
 #define CLOSURE_BSDF_OREN_NAYAR_ID 2u   /* TODO */
 #define CLOSURE_BSDF_SHEEN_ID 4u        /* TODO */
 #define CLOSURE_BSDF_DIFFUSE_TOON_ID 5u /* TODO */
@@ -184,6 +185,12 @@ struct ClosureOcclusion {
 };
 
 struct ClosureDiffuse {
+  packed_float3 color;
+  float weight;
+  packed_float3 N;
+};
+
+struct ClosureMagicaToon {
   packed_float3 color;
   float weight;
   packed_float3 N;

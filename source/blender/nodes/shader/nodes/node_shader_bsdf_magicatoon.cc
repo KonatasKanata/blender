@@ -42,12 +42,18 @@ NODE_SHADER_MATERIALX_BEGIN
   }
 
   NodeItem color = get_input_value("Color", NodeItem::Type::Color3);
-  NodeItem normalsmoothness = get_input_value("NormalSmoothness", NodeItem::Type::Float);
+  NodeItem roughness = get_input_value("Roughness", NodeItem::Type::Float);
   NodeItem normal = get_input_link("Normal", NodeItem::Type::Vector3);
 
-  return create_node("oren_nayar_magicatoon_bsdf",
-                     NodeItem::Type::BSDF,
-                     {{"color", color}, {"normalsmoothness", normalsmoothness}, {"normal", normal}});
+  //return create_node("oren_nayar_magicatoon_bsdf",
+  //                   NodeItem::Type::BSDF,
+  //                   {{"color", color}, {"normalsmoothness", normalsmoothness}, {"normal", normal}});
+
+  return create_node(
+      "oren_nayar_diffuse_bsdf",
+      NodeItem::Type::BSDF,
+                     {{"color", color}, {"roughness", roughness}, {"normal", normal}});
+
 }
 #endif
 NODE_SHADER_MATERIALX_END
@@ -62,6 +68,7 @@ void register_node_type_sh_bsdf_magicatoon()
   static blender::bke::bNodeType ntype;
 
   sh_node_type_base(&ntype, "ShaderNodeBsdfMagicaToon", SH_NODE_BSDF_MAGICATOON);
+  //sh_node_type_base(&ntype, "ShaderNodeBsdfMagicaToon", SH_NODE_BSDF_DIFFUSE);
   ntype.ui_name = "MagicaToon BSDF";
   ntype.ui_description = "MagicaToon BSDF";
   ntype.enum_name_legacy = "BSDF_MAGICATOON";

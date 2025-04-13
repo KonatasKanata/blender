@@ -499,6 +499,27 @@ ccl_device
       }
       break;
     }
+    case CLOSURE_BSDF_MAGICATOON_ID: {
+      const Spectrum weight = closure_weight * mix_weight;
+      ccl_private OrenNayarBsdf *bsdf = (ccl_private OrenNayarBsdf *)bsdf_alloc(
+          sd, sizeof(OrenNayarBsdf), weight);
+
+      if (bsdf) {
+        bsdf->N = N;
+
+        const float roughness = param1;
+
+        if (roughness == 0.0f) {
+          sd->flag |= bsdf_diffuse_setup((ccl_private DiffuseBsdf *)bsdf);
+        }
+        else {
+          bsdf->roughness = roughness;
+          const Spectrum color = saturate(rgb_to_spectrum(stack_load_float3(stack, data_node.y)));
+          sd->flag |= bsdf_oren_nayar_setup(sd, bsdf, color);
+        }
+      }
+      break;
+    }
     case CLOSURE_BSDF_TRANSLUCENT_ID: {
       const Spectrum weight = closure_weight * mix_weight;
       ccl_private DiffuseBsdf *bsdf = (ccl_private DiffuseBsdf *)bsdf_alloc(

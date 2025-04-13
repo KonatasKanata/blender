@@ -93,6 +93,7 @@ DeferredCombine deferred_combine(ivec2 texel)
       case CLOSURE_BSDF_TRANSLUCENT_ID:
       case CLOSURE_BSSRDF_BURLEY_ID:
       case CLOSURE_BSDF_DIFFUSE_ID:
+      case CLOSURE_BSDF_MAGICATOON_ID:
         diffuse_color += cl.color;
         diffuse_direct += closure_direct_light;
         diffuse_indirect += closure_indirect_light;

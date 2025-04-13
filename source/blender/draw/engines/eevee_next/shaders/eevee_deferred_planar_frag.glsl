@@ -31,6 +31,7 @@ void main()
     switch (cl.type) {
       case CLOSURE_BSSRDF_BURLEY_ID:
       case CLOSURE_BSDF_DIFFUSE_ID:
+      case CLOSURE_BSDF_MAGICATOON_ID:
       case CLOSURE_BSDF_MICROFACET_GGX_REFLECTION_ID:
         albedo_front += cl.color;
         break;
