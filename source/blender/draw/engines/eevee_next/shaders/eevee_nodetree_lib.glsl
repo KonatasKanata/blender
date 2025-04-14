@@ -199,10 +199,10 @@ Closure closure_eval(ClosureDiffuse diffuse)
 }
 
 /* Magica BSDFs. */
-Closure closure_eval(ClosureMagicaToon diffuse)
+Closure closure_eval(ClosureMagicaToon magicatoon)
 {
   ClosureUndetermined cl;
-  closure_base_copy(cl, diffuse);
+  closure_base_copy(cl, magicatoon);
   closure_select(g_closure_bins[0], g_closure_rand[0], cl);
   g_closure_bins[0].type = CLOSURE_BSDF_MAGICATOON_ID;
   return Closure(0);
